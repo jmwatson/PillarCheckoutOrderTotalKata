@@ -1,6 +1,6 @@
 class CheckoutOrder:
     def __init__(self):
-        self.__value = 0.00
+        self.__order_total = 0.00
         self.__items = {}
         self.__markdowns = {
             'markdown_item': 0.50,
@@ -19,13 +19,13 @@ class CheckoutOrder:
 
     def scan_item(self, item):
         self.__order.append(item)
-        self.__value = self.__value + self.get_item_value(item)
-        return self.__value
+        self.__order_total = self.__order_total + self.get_item_value(item)
+        return self.__order_total
 
     def scan_item_by_weight(self, item, weight):
         self.__order.append(item)
-        self.__value = self.__value + self.get_item_value(item, weight)
-        return self.__value
+        self.__order_total = self.__order_total + self.get_item_value(item, weight)
+        return self.__order_total
 
     def get_markdown(self, item):
         return self.__markdowns[item] if item in self.__markdowns else 0
