@@ -43,15 +43,27 @@ class CheckoutOrderTests(unittest.TestCase):
         self.assertEqual(0.50, self.checkout_order.get_item_value('markdown_item'))
 
     def test_get_order(self):
+        item_one = {
+            'name': 'item',
+            'value': 1.00,
+        }
+        item_two = {
+            'name': 'second_item',
+            'value': 1.50,
+        }
+        item_three = {
+            'name': 'weight_item',
+            'value': 1.00
+        }
+
         self.checkout_order.scan_item('item')
-        self.assertEqual([{'item': 1}], self.checkout_order.get_order())
+        self.assertEqual([item_one], self.checkout_order.get_order())
         self.checkout_order.scan_item('second_item')
-        self.assertEqual([{'item': 1}, {'second_item': 1.50}], self.checkout_order.get_order())
+        self.assertEqual([item_one, item_two], self.checkout_order.get_order())
         self.checkout_order.scan_item('item')
-        self.assertEqual([{'item': 1}, {'second_item': 1.50}, {'item': 1}], self.checkout_order.get_order())
+        self.assertEqual([item_one, item_two, item_one], self.checkout_order.get_order())
         self.checkout_order.scan_item_by_weight('weight_item', 1)
-        self.assertEqual([{'item': 1}, {'second_item': 1.50}, {'item': 1}, {'weight_item': 1}],
-                         self.checkout_order.get_order())
+        self.assertEqual([item_one, item_two, item_one, item_three], self.checkout_order.get_order())
 
     def test_get_order_total(self):
         self.assertEqual(0.00, self.checkout_order.get_order_total())
