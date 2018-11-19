@@ -17,7 +17,13 @@ class CheckoutOrder:
         return flag
 
     def add_markdown(self, item, value):
-        return True
+        flag = False
+
+        if item not in self.__markdowns:
+            self.__markdowns[item] = value
+            flag = True
+
+        return flag
 
     def scan_item(self, item):
         self.__order.append({'name': item, 'value': self.get_item_value(item)})
