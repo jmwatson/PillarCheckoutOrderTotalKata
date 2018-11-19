@@ -8,7 +8,12 @@ class CheckoutOrder:
         return
 
     def add_item(self, item, value):
-        return True
+        flag = False
+
+        if not self.__items[item]:
+            flag = True
+
+        return flag
 
 
     def scan_item(self, item):
