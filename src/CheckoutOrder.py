@@ -17,16 +17,13 @@ class CheckoutOrder:
 
         return flag
 
-
     def scan_item(self, item):
         self.__value = self.__value + (self.__items[item] - self.get_markdown(item))
         return self.__value
 
-
     def scan_item_by_weight(self, item, weight):
         self.__value = self.__value + ((self.__items[item] - self.get_markdown(item)) * weight)
         return self.__value
-
 
     def get_markdown(self, item):
         return self.__markdowns[item] if item in self.__markdowns else 0
