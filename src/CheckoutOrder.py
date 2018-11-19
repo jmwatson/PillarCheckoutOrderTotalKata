@@ -29,3 +29,6 @@ class CheckoutOrder:
 
     def get_item_value(self, item, weight=1):
         return (self.__items[item] - self.get_markdown(item)) * weight
+
+    def get_order(self):
+        return ['item']
