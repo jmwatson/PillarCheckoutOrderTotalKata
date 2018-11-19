@@ -2,6 +2,9 @@ class CheckoutOrder:
     def __init__(self):
         self.__value = 0.0
         self.__items = {}
+        self.__markdowns = {
+            'markdown_item': 0.5,
+        }
         return
 
     def add_item(self, item, value):
@@ -15,7 +18,7 @@ class CheckoutOrder:
 
 
     def scan_item(self, item):
-        markdown = 0.5
+        markdown = self.__markdowns[item] if item in self.__markdowns else 0
         self.__value = self.__value + (self.__items[item] - markdown)
         return self.__value
 
