@@ -8,6 +8,7 @@ class CheckoutOrder:
         flag = False
 
         if item not in self.__items:
+            self.__items[item] = value
             flag = True
 
         return flag
