@@ -20,7 +20,7 @@ class CheckoutOrder:
     def scan_item(self, item):
         self.__order.append({'name': item, 'value': self.get_item_value(item)})
         self.__order_total = self.__order_total + self.get_item_value(item)
-        return self.__order_total
+        return self.get_order_total()
 
     def scan_item_by_weight(self, item, weight):
         self.__order.append({'name': item, 'value': self.get_item_value(item)})
@@ -40,6 +40,6 @@ class CheckoutOrder:
         total = 0.00
 
         for item in self.__order:
-            total = total + self.get_item_value(item)
+            total = total + item['value']
 
         return total
