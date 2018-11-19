@@ -19,6 +19,9 @@ class CheckoutOrderTests(unittest.TestCase):
     def test_add_item(self):
         self.assertTrue(self.checkout_order.add_item('item3', 1))
 
+    def test_add_markdown(self):
+        self.assertTrue(self.checkout_order.add_markdown('item3', 0.50))
+
     def test_scan_item(self):
         self.assertEqual(1.00, self.checkout_order.scan_item('item'))
         self.assertEqual(2.00, self.checkout_order.scan_item('item'))
