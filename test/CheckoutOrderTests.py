@@ -13,6 +13,7 @@ class CheckoutOrderTests(unittest.TestCase):
         self.assertEqual(1.00, checkout_order.scan_item('item'))
         self.assertEqual(2.00, checkout_order.scan_item('item'))
         self.assertEqual(3.50, checkout_order.scan_item('second_item'))
+        self.assertEqual(5.00, checkout_order.scan_item('second_item'))
 
 
 if __name__ == 'main':
