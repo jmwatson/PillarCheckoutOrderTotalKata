@@ -6,7 +6,6 @@ class CheckoutOrder:
             'markdown_item': 0.50,
             'markdown_weighted_item': 0.50,
         }
-        return
 
     def add_item(self, item, value):
         flag = False
