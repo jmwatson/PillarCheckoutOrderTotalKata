@@ -15,7 +15,8 @@ class CheckoutOrder:
 
 
     def scan_item(self, item):
-        self.__value = self.__value + (self.__items[item] - 0.5)
+        markdown = 0.5
+        self.__value = self.__value + (self.__items[item] - markdown)
         return self.__value
 
 
