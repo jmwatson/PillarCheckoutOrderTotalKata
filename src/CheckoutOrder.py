@@ -4,3 +4,7 @@ class CheckoutOrder:
 
     def add_item(self, item, value):
         return True
+
+
+    def scan_item(self):
+        return True
