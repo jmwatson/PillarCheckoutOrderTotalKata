@@ -23,6 +23,7 @@ class CheckoutOrder:
         return self.__value
 
     def scan_item_by_weight(self, item, weight):
+        self.__order.append(item)
         self.__value = self.__value + self.get_item_value(item, weight)
         return self.__value
 
