@@ -17,7 +17,7 @@ class CheckoutOrder:
         return flag
 
     def scan_item(self, item):
-        self.__value = self.__value + (self.__items[item] - self.get_markdown(item))
+        self.__value = self.__value + self.get_item_value(item)
         return self.__value
 
     def scan_item_by_weight(self, item, weight):
