@@ -27,5 +27,5 @@ class CheckoutOrder:
     def get_markdown(self, item):
         return self.__markdowns[item] if item in self.__markdowns else 0
 
-    def get_item_value(self, item):
-        return self.__items[item] - self.get_markdown(item)
+    def get_item_value(self, item, weight=1):
+        return (self.__items[item] - self.get_markdown(item)) * weight
