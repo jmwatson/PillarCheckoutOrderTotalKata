@@ -1,10 +1,10 @@
 class CheckoutOrder:
     def __init__(self):
-        self.__value = 0.0
+        self.__value = 0.00
         self.__items = {}
         self.__markdowns = {
-            'markdown_item': 0.5,
-            'markdown_weighted_item': 0.5,
+            'markdown_item': 0.50,
+            'markdown_weighted_item': 0.50,
         }
         return
 
