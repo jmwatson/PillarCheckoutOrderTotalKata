@@ -1,10 +1,7 @@
 class CheckoutOrder:
     def __init__(self):
         self.__items = {}
-        self.__markdowns = {
-            'markdown_item': 0.50,
-            'markdown_weighted_item': 0.50,
-        }
+        self.__markdowns = {}
         self.__order = []
 
     def add_item(self, item, value):
