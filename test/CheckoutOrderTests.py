@@ -8,6 +8,7 @@ class CheckoutOrderTests(unittest.TestCase):
         self.checkout_order.add_item('item', 1.00)
         self.checkout_order.add_item('second_item', 1.50)
         self.checkout_order.add_item('markdown_item', 1)
+        self.checkout_order.add_item('markdown_weighted_item', 1)
 
 
     def tearDown(self):
@@ -32,6 +33,7 @@ class CheckoutOrderTests(unittest.TestCase):
 
     def test_scan_item_with_markdown(self):
         self.assertEqual(.50, self.checkout_order.scan_item('markdown_item'))
+        self.assertEqual(0.5, self.checkout_order.scan_item_by_weight('markdown_weighted_item', 1))
 
 
 if __name__ == 'main':
