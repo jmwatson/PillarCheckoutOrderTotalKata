@@ -6,6 +6,7 @@ class CheckoutOrder:
             'markdown_item': 0.50,
             'markdown_weighted_item': 0.50,
         }
+        self.__order = []
 
     def add_item(self, item, value):
         flag = False
@@ -17,6 +18,7 @@ class CheckoutOrder:
         return flag
 
     def scan_item(self, item):
+        self.__order.append(item)
         self.__value = self.__value + self.get_item_value(item)
         return self.__value
 
@@ -31,4 +33,4 @@ class CheckoutOrder:
         return (self.__items[item] - self.get_markdown(item)) * weight
 
     def get_order(self):
-        return ['item']
+        return self.__order
