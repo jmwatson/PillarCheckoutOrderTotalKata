@@ -20,4 +20,4 @@ class CheckoutOrder:
 
 
     def scan_item_by_weight(self, item, weight):
-        return 1.00
+        return 1.00 * weight
