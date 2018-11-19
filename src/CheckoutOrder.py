@@ -7,4 +7,4 @@ class CheckoutOrder:
 
 
     def scan_item(self):
-        return True
+        return 1.00

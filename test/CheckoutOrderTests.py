@@ -10,7 +10,7 @@ class CheckoutOrderTests(unittest.TestCase):
 
     def test_scan_item(self):
         checkout_order = CheckoutOrder()
-        self.assertTrue(checkout_order.scan_item())
+        self.assertEqual(1.00, checkout_order.scan_item())
 
 
 if __name__ == 'main':
