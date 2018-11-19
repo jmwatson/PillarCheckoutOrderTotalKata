@@ -1,5 +1,6 @@
 class CheckoutOrder:
     def __init__(self):
+        self.__value = 0.0
         return
 
     def add_item(self, item, value):
@@ -7,4 +8,5 @@ class CheckoutOrder:
 
 
     def scan_item(self, item):
-        return 1.00
+        self.__value = self.__value + 1.00
+        return self.__value
