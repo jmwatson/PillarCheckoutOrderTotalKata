@@ -24,5 +24,6 @@ class CheckoutOrder:
 
 
     def scan_item_by_weight(self, item, weight):
-        self.__value = self.__value + ((1.00 - 0.5) * weight)
+        markdown = self.__markdowns[item] if item in self.__markdowns else 0
+        self.__value = self.__value + ((1.00 - markdown) * weight)
         return self.__value
