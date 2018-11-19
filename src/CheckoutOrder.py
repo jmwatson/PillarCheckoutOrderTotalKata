@@ -19,12 +19,14 @@ class CheckoutOrder:
 
 
     def scan_item(self, item):
-        markdown = self.__markdowns[item] if item in self.__markdowns else 0
-        self.__value = self.__value + (self.__items[item] - markdown)
+        self.__value = self.__value + (self.__items[item] - self.get_markdown(item))
         return self.__value
 
 
     def scan_item_by_weight(self, item, weight):
-        markdown = self.__markdowns[item] if item in self.__markdowns else 0
-        self.__value = self.__value + ((self.__items[item] - markdown) * weight)
+        self.__value = self.__value + ((self.__items[item] - self.get_markdown(item)) * weight)
         return self.__value
+
+
+    def get_markdown(self, item):
+        return self.__markdowns[item] if item in self.__markdowns else 0
