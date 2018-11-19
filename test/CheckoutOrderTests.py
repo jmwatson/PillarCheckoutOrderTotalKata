@@ -38,6 +38,8 @@ class CheckoutOrderTests(unittest.TestCase):
     def test_scan_item_with_markdown(self):
         self.assertEqual(0.50, self.checkout_order.scan_item('markdown_item'))
         self.assertEqual(1.00, self.checkout_order.scan_item_by_weight('markdown_weighted_item', 1))
+        self.assertEqual(1.50, self.checkout_order.scan_item('markdown_item'))
+        self.assertEqual(2.25, self.checkout_order.scan_item_by_weight('markdown_weighted_item', 1.5))
 
 
 if __name__ == 'main':
