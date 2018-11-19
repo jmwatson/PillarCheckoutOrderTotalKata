@@ -5,6 +5,8 @@ from src.CheckoutOrder import CheckoutOrder
 class CheckoutOrderTests(unittest.TestCase):
     def setUp(self):
         self.checkout_order = CheckoutOrder()
+        self.checkout_order.add_item('item', 1.00)
+        self.checkout_order.add_item('second_item', 1.50)
 
 
     def tearDown(self):
@@ -12,7 +14,7 @@ class CheckoutOrderTests(unittest.TestCase):
 
 
     def test_add_item(self):
-        self.assertTrue(self.checkout_order.add_item('item', 1))
+        self.assertTrue(self.checkout_order.add_item('item3', 1))
 
 
     def test_scan_item(self):
