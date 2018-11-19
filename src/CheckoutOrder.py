@@ -37,4 +37,9 @@ class CheckoutOrder:
         return self.__order
 
     def get_order_total(self):
-        return 0.00
+        total = 0.00
+
+        for item in self.__order:
+            total = total + self.get_item_value(item)
+
+        return total
