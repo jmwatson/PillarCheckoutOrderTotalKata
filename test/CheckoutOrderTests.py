@@ -7,6 +7,7 @@ class CheckoutOrderTests(unittest.TestCase):
         self.checkout_order = CheckoutOrder()
         self.checkout_order.add_item('item', 1.00)
         self.checkout_order.add_item('second_item', 1.50)
+        self.checkout_order.add_item('markdown_item', 1)
 
 
     def tearDown(self):
