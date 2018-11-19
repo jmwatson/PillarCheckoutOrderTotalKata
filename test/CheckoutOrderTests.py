@@ -24,5 +24,9 @@ class CheckoutOrderTests(unittest.TestCase):
         self.assertEqual(5.00, self.checkout_order.scan_item('second_item'))
 
 
+    def test_scan_item_by_weight(self):
+        self.assertEqual(1.00, self.checkout_order.scan_item_by_weight('weight_item', 1))
+
+
 if __name__ == 'main':
     unittest.main()
