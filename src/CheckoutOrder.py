@@ -4,6 +4,7 @@ class CheckoutOrder:
         self.__items = {}
         self.__markdowns = {
             'markdown_item': 0.5,
+            'markdown_weighted_item': 0.5,
         }
         return
 
