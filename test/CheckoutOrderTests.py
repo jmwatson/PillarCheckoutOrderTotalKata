@@ -11,6 +11,7 @@ class CheckoutOrderTests(unittest.TestCase):
         self.checkout_order.add_item('markdown_weighted_item', 1.00)
         self.checkout_order.add_item('weight_item', 1.00)
         self.checkout_order.add_item('second_weight_item', 1.50)
+        self.checkout_order.add_item('bogo_item', 1.00)
 
 
     def tearDown(self):
