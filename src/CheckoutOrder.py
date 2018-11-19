@@ -16,6 +16,9 @@ class CheckoutOrder:
 
         return flag
 
+    def add_markdown(self, item, value):
+        return True
+
     def scan_item(self, item):
         self.__order.append({'name': item, 'value': self.get_item_value(item)})
         return self.get_order_total()
