@@ -12,6 +12,8 @@ class CheckoutOrderTests(unittest.TestCase):
         self.checkout_order.add_item('weight_item', 1.00)
         self.checkout_order.add_item('second_weight_item', 1.50)
         self.checkout_order.add_item('bogo_item', 1.00)
+        self.checkout_order.add_markdown('markdown_item', 0.50)
+        self.checkout_order.add_markdown('markdown_weighted_item', 0.50)
 
     def tearDown(self):
         self.checkout_order = None
