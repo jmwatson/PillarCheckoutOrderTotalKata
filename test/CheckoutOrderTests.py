@@ -42,6 +42,10 @@ class CheckoutOrderTests(unittest.TestCase):
         self.assertEqual(1.50, self.checkout_order.get_item_value('second_item'))
         self.assertEqual(0.50, self.checkout_order.get_item_value('markdown_item'))
 
+    def test_get_order(self):
+        self.checkout_order.scan_item('item')
+        self.assertEqual(['item'], self.checkout_order.get_order())
+
     # def test_scan_item_with_bogo_style_special(self):
     #     self.assertEqual(1.00, self.checkout_order.scan_item('bogo_item'))
     #     self.assertEqual(1.00, self.checkout_order.scan_item('bogo_item'))
