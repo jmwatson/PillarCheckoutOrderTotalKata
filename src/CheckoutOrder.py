@@ -2,6 +2,7 @@ class CheckoutOrder:
     def __init__(self):
         self.__items = {}
         self.__markdowns = {}
+        self.__specials = {}
         self.__order = []
 
     def add_item(self, item, value):
@@ -23,6 +24,16 @@ class CheckoutOrder:
         return flag
 
     def add_bogo_special(self, item, count, special_count, percent_off):
+        flag = False
+
+        if item not in self.__specials:
+            self.__specials[item] = {
+                'count': count,
+                'special_count': special_count,
+                'percent_off': percent_off,
+            }
+            flag = True
+
         return True
 
     def scan_item(self, item):
