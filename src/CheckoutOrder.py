@@ -85,6 +85,20 @@ class CheckoutOrder:
         count = {}
 
         for item in self.__order:
-            total += self.get_special_value(item, count)
+            # total += self.get_special_value(item, count)
+            name = item['name']
+            value = item['value']
+            count[name] = 1 if name not in count else count[name] + 1
+
+            if 'bundle' in self.__specials and name in self.__specials['bundle']:
+                bundles = self.__specials['bundle']
+
+                if bundles[name]['count'] == count[name]:
+                    total -= value * (count[name] - 1)
+                    total += bundles[name]['price']
+                    count[name] = 0
+                    value = 0.00
+
+            total += value;
 
         return total
