@@ -52,6 +52,10 @@ class CheckoutOrder:
         self.__order.append({'name': item, 'value': self.get_item_value(item, weight)})
         return self.get_order_total()
 
+    def scan_item_remove(self):
+        self.__order.pop()
+        return self.get_order_total()
+
     def get_markdown(self, item):
         return self.__markdowns[item] if item in self.__markdowns else 0
 
