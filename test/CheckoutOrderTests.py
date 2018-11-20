@@ -118,8 +118,8 @@ class CheckoutOrderTests(unittest.TestCase):
         self.assertEqual(5.00, self.checkout_order.scan_item('second_item'))
 
         # Remove the specific item via index
-        self.assertEqual(3.50, self.checkout_order.scan_item_remove(3))
-        self.assertEqual(2.50, self.checkout_order.scan_item_remove(2))
+        self.assertEqual(3.50, self.checkout_order.scan_item_remove(2))
+        self.assertEqual(2.50, self.checkout_order.scan_item_remove(1))
 
 
 if __name__ == 'main':

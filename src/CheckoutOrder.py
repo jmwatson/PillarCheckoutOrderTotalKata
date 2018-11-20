@@ -53,7 +53,7 @@ class CheckoutOrder:
         return self.get_order_total()
 
     def scan_item_remove(self, index=-1):
-        self.__order.pop(index if index is -1 else index - 1)
+        self.__order.pop(index)
         return self.get_order_total()
 
     def get_markdown(self, item):
