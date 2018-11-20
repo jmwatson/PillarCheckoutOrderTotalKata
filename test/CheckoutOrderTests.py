@@ -30,6 +30,7 @@ class CheckoutOrderTests(unittest.TestCase):
     def test_add_special(self):
         self.assertTrue(self.checkout_order.add_bogo_special('item3', 1, 1, 100, 3))
         self.assertTrue(self.checkout_order.add_bundle_special('item4', 2, 3))
+        self.assertTrue(self.checkout_order.add_bogo_special('item5', 1, 1, 100))
 
     def test_scan_item(self):
         self.assertEqual(1.00, self.checkout_order.scan_item('item'))
