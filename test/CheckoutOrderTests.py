@@ -107,6 +107,11 @@ class CheckoutOrderTests(unittest.TestCase):
         self.assertEqual(9.00, self.checkout_order.scan_item_by_weight('bundle_item', 1.1))
 
     def test_scan_item_remove(self):
+        self.checkout_order.add_item('bogo_weighted_item', 1.00)
+        self.checkout_order.add_item('bundle_weighted_item', 2.00)
+        self.checkout_order.add_bogo_special('bogo_weighted_item', 1, 1, 100, 3)
+        self.checkout_order.add_bundle_special('bundle_weighted_item', 2, 3)
+
         self.assertEqual(1.00, self.checkout_order.scan_item('item'))
         self.assertEqual(2.00, self.checkout_order.scan_item('item'))
 
@@ -132,22 +137,23 @@ class CheckoutOrderTests(unittest.TestCase):
         self.assertEqual(10.00, self.checkout_order.scan_item('bogo_item_2'))
         self.assertEqual(10.50, self.checkout_order.scan_item('bogo_item_2'))
         self.assertEqual(11.00, self.checkout_order.scan_item('bogo_item_2'))
-        self.assertEqual(12.10, self.checkout_order.scan_item_by_weight('bogo_item', 1.1))
-        self.assertEqual(12.10, self.checkout_order.scan_item_by_weight('bogo_item', 1.1))
+        self.assertEqual(12.10, self.checkout_order.scan_item_by_weight('bogo_weighted_item', 1.1))
+        self.assertEqual(12.10, self.checkout_order.scan_item_by_weight('bogo_weighted_item', 1.1))
         self.assertEqual(13.10, self.checkout_order.scan_item('bogo_item'))
         self.assertEqual(14.10, self.checkout_order.scan_item('bogo_item'))
         self.assertEqual(16.10, self.checkout_order.scan_item('bundle_item'))
         self.assertEqual(17.10, self.checkout_order.scan_item('bundle_item'))
         self.assertEqual(19.10, self.checkout_order.scan_item('bundle_item'))
         self.assertEqual(20.10, self.checkout_order.scan_item('bundle_item'))
-        self.assertEqual(22.30, self.checkout_order.scan_item_by_weight('bundle_item', 1.1))
-        self.assertEqual(23.10, self.checkout_order.scan_item_by_weight('bundle_item', 1.1))
+        self.assertEqual(22.30, self.checkout_order.scan_item_by_weight('bundle_weighted_item', 1.1))
+        self.assertEqual(23.10, self.checkout_order.scan_item_by_weight('bundle_weighted_item', 1.1))
 
         # Remove items from a special
         # Remove first item from bundle specials by weight
         self.assertEqual(22.30, self.checkout_order.scan_item_remove(21))
         # Remove random bundle item not by weight
         self.assertEqual(21.30, self.checkout_order.scan_item_remove(19))
+        # Remove a bogo item 2 entry
 
 
 if __name__ == 'main':
