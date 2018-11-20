@@ -12,12 +12,25 @@ class CheckoutOrder:
         return self.add_to_data_store(self.__markdowns, item, value)
 
     def add_bogo_special(self, item, count, special_count, percent_off):
+        if 'bogo' not in self.__specials:
+            self.add_to_data_store(self.__specials, 'bogo', {})
+
         entry = {
                 'count': count,
                 'special_count': special_count,
                 'percent_off': percent_off,
             }
-        return self.add_to_data_store(self.__specials, item, entry)
+        return self.add_to_data_store(self.__specials['bogo'], item, entry)
+
+    def add_bundle_special(self, item, count, price):
+        if 'bundle' not in self.__specials:
+            self.add_to_data_store(self.__specials, 'bundle', {})
+
+        entry = {
+            'count': count,
+            'price': price
+        }
+        return self.add_to_data_store(self.__specials['bundle'], item, entry)
 
     @staticmethod
     def add_to_data_store(dictionary, key, value):
@@ -46,21 +59,21 @@ class CheckoutOrder:
     def get_special_value(self, item, count):
         name = item['name']
         count[name] = 1 if name not in count else count[name] + 1
+        value = item['value']
 
-        if name in self.__specials:
-            min_count = self.__specials[name]['count']
-            max_count = min_count + self.__specials[name]['special_count']
+        if 'bogo' in self.__specials:
+            bogos = self.__specials['bogo']
 
-            if min_count < count[name] <= max_count:
-                # 100.0 is to force python to run the percentage calculation as a float rather than an integer.
-                value = item['value'] - (item['value'] * self.__specials[name]['percent_off'] / 100.0)
+            if name in bogos:
+                min_count = bogos[name]['count']
+                max_count = min_count + bogos[name]['special_count']
 
-                if count[name] == max_count:
-                    count[name] = 0
-            else:
-                value = item['value']
-        else:
-            value = item['value']
+                if min_count < count[name] <= max_count:
+                    # 100.0 is to force python to run the percentage calculation as a float rather than an integer.
+                    value = item['value'] - (item['value'] * bogos[name]['percent_off'] / 100.0)
+
+                    if count[name] == max_count:
+                        count[name] = 0
 
         return value
 
