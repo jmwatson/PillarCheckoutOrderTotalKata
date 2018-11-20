@@ -95,9 +95,8 @@ class CheckoutOrder:
 
                 if bundles[name]['count'] == count[name]:
                     total -= value * (count[name] - 1)
-                    total += bundles[name]['price']
+                    value = bundles[name]['price']
                     count[name] = 0
-                    value = 0.00
 
             total += value;
 
