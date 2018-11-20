@@ -146,6 +146,8 @@ class CheckoutOrderTests(unittest.TestCase):
         # Remove items from a special
         # Remove first item from bundle specials by weight
         self.assertEqual(22.30, self.checkout_order.scan_item_remove(21))
+        # Remove random bundle item not by weight
+        self.assertEqual(21.30, self.checkout_order.scan_item_remove(19))
 
 
 if __name__ == 'main':
