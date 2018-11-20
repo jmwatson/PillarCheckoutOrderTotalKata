@@ -111,4 +111,4 @@ class CheckoutOrder:
 
             self.__total += value;
 
-        return self.__total
+        return round(self.__total, 2)
