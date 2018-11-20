@@ -19,7 +19,8 @@ class CheckoutOrder:
             }
         return self.add_to_data_store(self.__specials, item, entry)
 
-    def add_to_data_store(self, dictionary, key, value):
+    @staticmethod
+    def add_to_data_store(dictionary, key, value):
         flag = False
 
         if key not in dictionary:
