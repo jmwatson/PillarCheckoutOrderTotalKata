@@ -43,6 +43,27 @@ class CheckoutOrder:
     def get_item_value(self, item, weight=1):
         return (self.__items[item] - self.get_markdown(item)) * weight
 
+    def get_special_value(self, item, count):
+        name = item['name']
+        count[name] = 1 if name not in count else count[name] + 1
+
+        if name in self.__specials:
+            min_count = self.__specials[name]['count']
+            max_count = min_count + self.__specials[name]['special_count']
+
+            if min_count < count[name] <= max_count:
+                # 100.0 is to force python to run the percentage calculation as a float rather than an integer.
+                value = item['value'] - (item['value'] * self.__specials[name]['percent_off'] / 100.0)
+
+                if count[name] == max_count:
+                    count[name] = 0
+            else:
+                value = item['value']
+        else:
+            value = item['value']
+
+        return value
+
     def get_order(self):
         return self.__order
 
@@ -51,22 +72,6 @@ class CheckoutOrder:
         count = {}
 
         for item in self.__order:
-            name = item['name']
-            count[name] = 1 if name not in count else count[name] + 1
-
-            if name in self.__specials:
-                min_count = self.__specials[name]['count']
-                max_count = min_count + self.__specials[name]['special_count']
-
-                if min_count < count[name] <= max_count:
-                    # 100.0 is to force python to run the percentage calculation as a float rather than an integer.
-                    total += item['value'] - (item['value'] * self.__specials[name]['percent_off'] / 100.0)
-
-                    if count[name] == max_count:
-                        count[name] = 0
-                else:
-                    total += item['value']
-            else:
-                total += item['value']
+            total += self.get_special_value(item, count)
 
         return total
