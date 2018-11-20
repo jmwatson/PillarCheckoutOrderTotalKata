@@ -15,7 +15,7 @@ class CheckoutOrderTests(unittest.TestCase):
         self.checkout_order.add_item('bogo_item_2', 1.00)
         self.checkout_order.add_markdown('markdown_item', 0.50)
         self.checkout_order.add_markdown('markdown_weighted_item', 0.50)
-        self.checkout_order.add_bogo_special('bogo_item', 1, 1, 100)
+        self.checkout_order.add_bogo_special('bogo_item', 1, 1, 100, 3)
         self.checkout_order.add_bogo_special('bogo_item_2', 3, 2, 50)
 
     def tearDown(self):
@@ -28,7 +28,7 @@ class CheckoutOrderTests(unittest.TestCase):
         self.assertTrue(self.checkout_order.add_markdown('item3', 0.50))
 
     def test_add_special(self):
-        self.assertTrue(self.checkout_order.add_bogo_special('item3', 1, 1, 100))
+        self.assertTrue(self.checkout_order.add_bogo_special('item3', 1, 1, 100, 3))
         self.assertTrue(self.checkout_order.add_bundle_special('item4', 2, 3))
 
     def test_scan_item(self):
