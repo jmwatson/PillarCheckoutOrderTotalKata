@@ -48,8 +48,20 @@ class CheckoutOrder:
 
     def get_order_total(self):
         total = 0.00
+        count = {}
 
         for item in self.__order:
-            total = total + item['value']
+            name = item['name']
+            count[name] = 1 if name not in count else count[name] + 1
+
+            if name in self.__specials:
+                max_count = self.__specials[name]['count'] + self.__specials[name]['special_count']
+
+                if self.__specials[name]['count'] < count[name] <= max_count:
+                    total += item['value'] - (item['value'] * (self.__specials[name]['percent_off'] / 100))
+                else:
+                    total += item['value']
+            else:
+                total += item['value']
 
         return total
