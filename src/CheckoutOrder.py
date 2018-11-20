@@ -52,8 +52,8 @@ class CheckoutOrder:
         self.__order.append({'name': item, 'value': self.get_item_value(item, weight)})
         return self.get_order_total()
 
-    def scan_item_remove(self):
-        self.__order.pop()
+    def scan_item_remove(self, index=-1):
+        self.__order.pop(index if index is -1 else index - 1)
         return self.get_order_total()
 
     def get_markdown(self, item):
