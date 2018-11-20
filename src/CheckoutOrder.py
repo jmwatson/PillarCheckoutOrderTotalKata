@@ -22,6 +22,9 @@ class CheckoutOrder:
 
         return flag
 
+    def add_bogo_special(self, item, count, special_count, percent_off):
+        return True
+
     def scan_item(self, item):
         self.__order.append({'name': item, 'value': self.get_item_value(item)})
         return self.get_order_total()
