@@ -87,8 +87,8 @@ class CheckoutOrderTests(unittest.TestCase):
         self.assertEqual(3.00, self.checkout_order.scan_item('bogo_item_2'))
         self.assertEqual(4.00, self.checkout_order.scan_item('bogo_item_2'))
         self.assertEqual(5.00, self.checkout_order.scan_item('bogo_item_2'))
-        self.assertEqual(5.00, self.checkout_order.scan_item('bogo_item_2'))
-        self.assertEqual(5.00, self.checkout_order.scan_item('bogo_item_2'))
+        self.assertEqual(5.50, self.checkout_order.scan_item('bogo_item_2'))
+        self.assertEqual(6.00, self.checkout_order.scan_item('bogo_item_2'))
 
 
 if __name__ == 'main':
