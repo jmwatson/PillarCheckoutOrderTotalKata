@@ -121,6 +121,32 @@ class CheckoutOrderTests(unittest.TestCase):
         self.assertEqual(3.50, self.checkout_order.scan_item_remove(2))
         self.assertEqual(2.50, self.checkout_order.scan_item_remove(1))
 
+        self.assertEqual(3.50, self.checkout_order.scan_item('item'))
+        self.assertEqual(5.00, self.checkout_order.scan_item('second_item'))
+        self.assertEqual(6.00, self.checkout_order.scan_item('bogo_item'))
+        self.assertEqual(6.00, self.checkout_order.scan_item('bogo_item'))
+        self.assertEqual(7.00, self.checkout_order.scan_item('bogo_item'))
+        self.assertEqual(7.00, self.checkout_order.scan_item('bogo_item'))
+        self.assertEqual(8.00, self.checkout_order.scan_item('bogo_item_2'))
+        self.assertEqual(9.00, self.checkout_order.scan_item('bogo_item_2'))
+        self.assertEqual(10.00, self.checkout_order.scan_item('bogo_item_2'))
+        self.assertEqual(10.50, self.checkout_order.scan_item('bogo_item_2'))
+        self.assertEqual(11.00, self.checkout_order.scan_item('bogo_item_2'))
+        self.assertEqual(12.10, self.checkout_order.scan_item_by_weight('bogo_item', 1.1))
+        self.assertEqual(12.10, self.checkout_order.scan_item_by_weight('bogo_item', 1.1))
+        self.assertEqual(13.10, self.checkout_order.scan_item('bogo_item'))
+        self.assertEqual(14.10, self.checkout_order.scan_item('bogo_item'))
+        self.assertEqual(16.10, self.checkout_order.scan_item('bundle_item'))
+        self.assertEqual(17.10, self.checkout_order.scan_item('bundle_item'))
+        self.assertEqual(19.10, self.checkout_order.scan_item('bundle_item'))
+        self.assertEqual(20.10, self.checkout_order.scan_item('bundle_item'))
+        self.assertEqual(22.30, self.checkout_order.scan_item_by_weight('bundle_item', 1.1))
+        self.assertEqual(23.10, self.checkout_order.scan_item_by_weight('bundle_item', 1.1))
+
+        # Remove items from a special
+        # Remove first item from bundle specials by weight
+        self.assertEqual(22.30, self.checkout_order.scan_item_remove(21))
+
 
 if __name__ == 'main':
     unittest.main()
