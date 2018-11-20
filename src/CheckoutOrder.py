@@ -12,7 +12,7 @@ class CheckoutOrder:
     def add_markdown(self, item, value):
         return self.add_to_data_store(self.__markdowns, item, value)
 
-    def add_bogo_special(self, item, count, special_count, percent_off):
+    def add_bogo_special(self, item, count, special_count, percent_off, limit=0):
         if 'bogo' not in self.__specials:
             self.add_to_data_store(self.__specials, 'bogo', {})
 
@@ -20,6 +20,7 @@ class CheckoutOrder:
                 'count': count,
                 'special_count': special_count,
                 'percent_off': percent_off,
+                'limit': limit,
             }
         return self.add_to_data_store(self.__specials['bogo'], item, entry)
 
@@ -29,7 +30,7 @@ class CheckoutOrder:
 
         entry = {
             'count': count,
-            'price': price
+            'price': price,
         }
         return self.add_to_data_store(self.__specials['bundle'], item, entry)
 
