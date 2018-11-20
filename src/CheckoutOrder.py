@@ -4,6 +4,7 @@ class CheckoutOrder:
         self.__markdowns = {}
         self.__specials = {}
         self.__order = []
+        self.__total = 0.0
 
     def add_item(self, item, value):
         return self.add_to_data_store(self.__items, item, value)
@@ -56,7 +57,7 @@ class CheckoutOrder:
     def get_item_value(self, item, weight=1):
         return (self.__items[item] - self.get_markdown(item)) * weight
 
-    def get_special_value(self, item, count):
+    def get_special_value(self, item, name, value, count):
         name = item['name']
         count[name] = 1 if name not in count else count[name] + 1
         value = item['value']
@@ -77,11 +78,22 @@ class CheckoutOrder:
 
         return value
 
+    def handle_bundle_specials(self, name, value, count):
+        if 'bundle' in self.__specials and name in self.__specials['bundle']:
+            bundles = self.__specials['bundle']
+
+            if bundles[name]['count'] == count[name]:
+                self.__total -= value * (count[name] - 1)
+                value = bundles[name]['price']
+                count[name] = 0
+
+        return value
+
     def get_order(self):
         return self.__order
 
     def get_order_total(self):
-        total = 0.00
+        self.__total = 0.00
         count = {}
 
         for item in self.__order:
@@ -90,14 +102,8 @@ class CheckoutOrder:
             value = item['value']
             count[name] = 1 if name not in count else count[name] + 1
 
-            if 'bundle' in self.__specials and name in self.__specials['bundle']:
-                bundles = self.__specials['bundle']
+            value = self.handle_bundle_specials(name, value, count)
 
-                if bundles[name]['count'] == count[name]:
-                    total -= value * (count[name] - 1)
-                    value = bundles[name]['price']
-                    count[name] = 0
+            self.__total += value;
 
-            total += value;
-
-        return total
+        return self.__total
