@@ -58,17 +58,19 @@ class CheckoutOrder:
     def get_item_value(self, item, weight=1):
         return (self.__items[item] - self.get_markdown(item)) * weight
 
-    def get_bogo_value(self, item, name, value, count):
+    def get_bogo_value(self, item, name, value, count, times_redeemed):
         bogos = self.__specials['bogo']
         min_count = bogos[name]['count']
         max_count = min_count + bogos[name]['special_count']
 
-        if min_count < count[name] <= max_count:
+        if min_count < count[name] <= max_count and \
+                (bogos[name]['limit'] is 0 or bogos[name]['limit'] > times_redeemed[name]):
             # 100.0 is to force python to run the percentage calculation as a float rather than an integer.
             value = item['value'] - (item['value'] * bogos[name]['percent_off'] / 100.0)
 
             if count[name] == max_count:
                 count[name] = 0
+                times_redeemed[name] += 1
 
         return value
 
@@ -88,14 +90,18 @@ class CheckoutOrder:
     def get_order_total(self):
         self.__total = 0.00
         count = {}
+        times_redeemed = {}
 
         for item in self.__order:
             name = item['name']
             value = item['value']
             count[name] = 1 if name not in count else count[name] + 1
 
+            if name not in times_redeemed:
+                times_redeemed[name] = 0
+
             if 'bogo' in self.__specials and name in self.__specials['bogo']:
-                value = self.get_bogo_value(item, name, value, count)
+                value = self.get_bogo_value(item, name, value, count, times_redeemed)
             elif 'bundle' in self.__specials and name in self.__specials['bundle']:
                 value = self.handle_bundle_specials(name, value, count)
 
