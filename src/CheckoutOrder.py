@@ -57,35 +57,27 @@ class CheckoutOrder:
     def get_item_value(self, item, weight=1):
         return (self.__items[item] - self.get_markdown(item)) * weight
 
-    def get_special_value(self, item, name, value, count):
-        name = item['name']
-        count[name] = 1 if name not in count else count[name] + 1
-        value = item['value']
+    def get_bogo_value(self, item, name, value, count):
+        bogos = self.__specials['bogo']
+        min_count = bogos[name]['count']
+        max_count = min_count + bogos[name]['special_count']
 
-        if 'bogo' in self.__specials:
-            bogos = self.__specials['bogo']
+        if min_count < count[name] <= max_count:
+            # 100.0 is to force python to run the percentage calculation as a float rather than an integer.
+            value = item['value'] - (item['value'] * bogos[name]['percent_off'] / 100.0)
 
-            if name in bogos:
-                min_count = bogos[name]['count']
-                max_count = min_count + bogos[name]['special_count']
-
-                if min_count < count[name] <= max_count:
-                    # 100.0 is to force python to run the percentage calculation as a float rather than an integer.
-                    value = item['value'] - (item['value'] * bogos[name]['percent_off'] / 100.0)
-
-                    if count[name] == max_count:
-                        count[name] = 0
+            if count[name] == max_count:
+                count[name] = 0
 
         return value
 
     def handle_bundle_specials(self, name, value, count):
-        if 'bundle' in self.__specials and name in self.__specials['bundle']:
-            bundles = self.__specials['bundle']
+        bundles = self.__specials['bundle']
 
-            if bundles[name]['count'] == count[name]:
-                self.__total -= value * (count[name] - 1)
-                value = bundles[name]['price']
-                count[name] = 0
+        if bundles[name]['count'] == count[name]:
+            self.__total -= value * (count[name] - 1)
+            value = bundles[name]['price']
+            count[name] = 0
 
         return value
 
@@ -97,12 +89,14 @@ class CheckoutOrder:
         count = {}
 
         for item in self.__order:
-            # total += self.get_special_value(item, count)
             name = item['name']
             value = item['value']
             count[name] = 1 if name not in count else count[name] + 1
 
-            value = self.handle_bundle_specials(name, value, count)
+            if 'bogo' in self.__specials and name in self.__specials['bogo']:
+                value = self.get_bogo_value(item, name, value, count)
+            elif 'bundle' in self.__specials and name in self.__specials['bundle']:
+                value = self.handle_bundle_specials(name, value, count)
 
             self.__total += value;
 
