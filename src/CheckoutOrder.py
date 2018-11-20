@@ -59,6 +59,7 @@ class CheckoutOrder:
                 max_count = min_count + self.__specials[name]['special_count']
 
                 if min_count < count[name] <= max_count:
+                    # 100.0 is to force python to run the percentage calculation as a float rather than an integer.
                     total += item['value'] - (item['value'] * self.__specials[name]['percent_off'] / 100.0)
 
                     if count[name] == max_count:
