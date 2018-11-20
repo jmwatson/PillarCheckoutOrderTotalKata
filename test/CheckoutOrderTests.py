@@ -154,6 +154,9 @@ class CheckoutOrderTests(unittest.TestCase):
         # Remove random bundle item not by weight
         self.assertEqual(20.30, self.checkout_order.scan_item_remove(19))
         # Remove a bogo item 2 entry
+        self.assertEqual(19.80, self.checkout_order.scan_item_remove(9))
+        # Remove a bogo item entry
+        self.assertEqual(19.80, self.checkout_order.scan_item_remove(6))
 
 
 if __name__ == 'main':
