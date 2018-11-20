@@ -6,35 +6,27 @@ class CheckoutOrder:
         self.__order = []
 
     def add_item(self, item, value):
-        flag = False
-
-        if item not in self.__items:
-            self.__items[item] = value
-            flag = True
-
-        return flag
+        return self.add_to_dictionary(self.__items, item, value)
 
     def add_markdown(self, item, value):
-        flag = False
-
-        if item not in self.__markdowns:
-            self.__markdowns[item] = value
-            flag = True
-
-        return flag
+        return self.add_to_dictionary(self.__markdowns, item, value)
 
     def add_bogo_special(self, item, count, special_count, percent_off):
-        flag = False
-
-        if item not in self.__specials:
-            self.__specials[item] = {
+        entry = {
                 'count': count,
                 'special_count': special_count,
                 'percent_off': percent_off,
             }
+        return self.add_to_dictionary(self.__specials, item, entry)
+
+    def add_to_dictionary(self, dictionary, key, value):
+        flag = False
+
+        if key not in dictionary:
+            dictionary[key] = value
             flag = True
 
-        return True
+        return flag
 
     def scan_item(self, item):
         self.__order.append({'name': item, 'value': self.get_item_value(item)})
