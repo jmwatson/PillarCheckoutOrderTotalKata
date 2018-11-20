@@ -6,10 +6,10 @@ class CheckoutOrder:
         self.__order = []
 
     def add_item(self, item, value):
-        return self.add_to_dictionary(self.__items, item, value)
+        return self.add_to_data_store(self.__items, item, value)
 
     def add_markdown(self, item, value):
-        return self.add_to_dictionary(self.__markdowns, item, value)
+        return self.add_to_data_store(self.__markdowns, item, value)
 
     def add_bogo_special(self, item, count, special_count, percent_off):
         entry = {
@@ -17,9 +17,9 @@ class CheckoutOrder:
                 'special_count': special_count,
                 'percent_off': percent_off,
             }
-        return self.add_to_dictionary(self.__specials, item, entry)
+        return self.add_to_data_store(self.__specials, item, entry)
 
-    def add_to_dictionary(self, dictionary, key, value):
+    def add_to_data_store(self, dictionary, key, value):
         flag = False
 
         if key not in dictionary:
