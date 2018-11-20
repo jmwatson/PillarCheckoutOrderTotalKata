@@ -91,6 +91,12 @@ class CheckoutOrderTests(unittest.TestCase):
         self.assertEqual(5.50, self.checkout_order.scan_item('bogo_item_2'))
         self.assertEqual(6.00, self.checkout_order.scan_item('bogo_item_2'))
 
+    def test_scan_item_with_bundle_special(self):
+        self.checkout_order.add_item('bundle_item', 2)
+        self.checkout_order.add_bundle_special('bundle_item', 2, 3)
+        self.assertEqual(2.00, self.checkout_order.scan_item('bundle_item'))
+        self.assertEqual(3.00, self.checkout_order.scan_item('bundle_item'))
+
 
 if __name__ == 'main':
     unittest.main()
