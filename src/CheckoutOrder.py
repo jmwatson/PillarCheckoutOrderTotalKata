@@ -55,10 +55,14 @@ class CheckoutOrder:
             count[name] = 1 if name not in count else count[name] + 1
 
             if name in self.__specials:
-                max_count = self.__specials[name]['count'] + self.__specials[name]['special_count']
+                min_count = self.__specials[name]['count']
+                max_count = min_count + self.__specials[name]['special_count']
 
-                if self.__specials[name]['count'] < count[name] <= max_count:
-                    total += item['value'] - (item['value'] * (self.__specials[name]['percent_off'] / 100))
+                if min_count < count[name] <= max_count:
+                    total += item['value'] - (item['value'] * self.__specials[name]['percent_off'] / 100.0)
+
+                    if count[name] == max_count:
+                        count[name] = 0
                 else:
                     total += item['value']
             else:
