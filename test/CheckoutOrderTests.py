@@ -12,9 +12,11 @@ class CheckoutOrderTests(unittest.TestCase):
         self.checkout_order.add_item('weight_item', 1.00)
         self.checkout_order.add_item('second_weight_item', 1.50)
         self.checkout_order.add_item('bogo_item', 1.00)
+        self.checkout_order.add_item('bogo_item_2', 1.00)
         self.checkout_order.add_markdown('markdown_item', 0.50)
         self.checkout_order.add_markdown('markdown_weighted_item', 0.50)
         self.checkout_order.add_bogo_special('bogo_item', 1, 1, 100)
+        self.checkout_order.add_bogo_special('bogo_item_2', 3, 2, 50)
 
     def tearDown(self):
         self.checkout_order = None
@@ -80,6 +82,13 @@ class CheckoutOrderTests(unittest.TestCase):
     def test_scan_item_with_bogo_style_special(self):
         self.assertEqual(1.00, self.checkout_order.scan_item('bogo_item'))
         self.assertEqual(1.00, self.checkout_order.scan_item('bogo_item'))
+        self.assertEqual(2.00, self.checkout_order.scan_item('bogo_item'))
+        self.assertEqual(2.00, self.checkout_order.scan_item('bogo_item'))
+        self.assertEqual(3.00, self.checkout_order.scan_item('bogo_item2'))
+        self.assertEqual(4.00, self.checkout_order.scan_item('bogo_item2'))
+        self.assertEqual(5.00, self.checkout_order.scan_item('bogo_item2'))
+        self.assertEqual(5.00, self.checkout_order.scan_item('bogo_item2'))
+        self.assertEqual(5.00, self.checkout_order.scan_item('bogo_item2'))
 
 
 if __name__ == 'main':
