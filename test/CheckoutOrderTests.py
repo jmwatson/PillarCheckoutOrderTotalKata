@@ -106,6 +106,13 @@ class CheckoutOrderTests(unittest.TestCase):
         self.assertEqual(8.20, self.checkout_order.scan_item_by_weight('bundle_item', 1.1))
         self.assertEqual(9.00, self.checkout_order.scan_item_by_weight('bundle_item', 1.1))
 
+    def test_scan_item_remove(self):
+        self.assertEqual(1.00, self.checkout_order.scan_item('item'))
+        self.assertEqual(2.00, self.checkout_order.scan_item('item'))
+
+        # Remove last item
+        self.assertEqual(1.00, self.checkout_order.scan_item_remove())
+
 
 if __name__ == 'main':
     unittest.main()
