@@ -113,6 +113,9 @@ class CheckoutOrder:
     def get_order(self):
         return self.__order
 
+    def clear_order(self):
+        return True
+
     def get_order_total(self):
         self.__total = 0.00
         count = {}
