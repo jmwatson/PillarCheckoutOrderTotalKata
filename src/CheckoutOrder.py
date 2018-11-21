@@ -106,6 +106,7 @@ class CheckoutOrder:
             self.__temp_discounts[special['discount_item']] = special['percent_off']
         elif discount is not None and name in self.__temp_discounts:
             value -= (value * (self.__temp_discounts[name] / 100.0))
+            self.__temp_discounts.pop(name)
 
         return value
 
