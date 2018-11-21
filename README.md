@@ -1,7 +1,8 @@
 # PillarCheckoutOrderTotalKata
 
 _\* I used PyCharm as my development environment so I can't guarantee the command line works._
-####Setup
+
+#### Setup
 
 ---
 1. Download and install Python 2.7 from https://www.python.org/downloads/
@@ -11,7 +12,7 @@ _\* I used PyCharm as my development environment so I can't guarantee the comman
 5. Run the unit tests in your favorite IDE or via command line ```python -m unittest discover -s test/CheckoutOrderTests.py```
 
 ---
-####Virtual Environment Setup
+#### Virtual Environment Setup
 
 ---
 1. Install virtualenv ```pip install virtualenv```
