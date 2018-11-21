@@ -35,24 +35,6 @@ class CheckoutOrderTests(unittest.TestCase):
         self.assertTrue(self.checkout_order.add_bogo_special('item5', 1, 1, 100))
         self.assertTrue(self.checkout_order.add_equality_special('item6', 'item7', 50))
 
-    def test_scan_item(self):
-        self.assertEqual(1.00, self.checkout_order.scan_item('item'))
-        self.assertEqual(2.00, self.checkout_order.scan_item('item'))
-        self.assertEqual(3.50, self.checkout_order.scan_item('second_item'))
-        self.assertEqual(5.00, self.checkout_order.scan_item('second_item'))
-
-    def test_scan_item_by_weight(self):
-        self.assertEqual(1.00, self.checkout_order.scan_item_by_weight('weight_item', 1))
-        self.assertEqual(2.10, self.checkout_order.scan_item_by_weight('weight_item', 1.1))
-        self.assertEqual(3.60, self.checkout_order.scan_item_by_weight('second_weight_item', 1))
-        self.assertEqual(5.25, self.checkout_order.scan_item_by_weight('second_weight_item', 1.1))
-
-    def test_scan_item_with_markdown(self):
-        self.assertEqual(0.50, self.checkout_order.scan_item('markdown_item'))
-        self.assertEqual(1.00, self.checkout_order.scan_item_by_weight('markdown_weighted_item', 1))
-        self.assertEqual(1.50, self.checkout_order.scan_item('markdown_item'))
-        self.assertEqual(2.25, self.checkout_order.scan_item_by_weight('markdown_weighted_item', 1.5))
-
     def test_get_item_value(self):
         self.assertEqual(1.00, self.checkout_order.get_item_value('item'))
         self.assertEqual(1.50, self.checkout_order.get_item_value('second_item'))
@@ -83,6 +65,24 @@ class CheckoutOrderTests(unittest.TestCase):
 
     def test_get_order_total(self):
         self.assertEqual(0.00, self.checkout_order.get_order_total())
+
+    def test_scan_item(self):
+        self.assertEqual(1.00, self.checkout_order.scan_item('item'))
+        self.assertEqual(2.00, self.checkout_order.scan_item('item'))
+        self.assertEqual(3.50, self.checkout_order.scan_item('second_item'))
+        self.assertEqual(5.00, self.checkout_order.scan_item('second_item'))
+
+    def test_scan_item_by_weight(self):
+        self.assertEqual(1.00, self.checkout_order.scan_item_by_weight('weight_item', 1))
+        self.assertEqual(2.10, self.checkout_order.scan_item_by_weight('weight_item', 1.1))
+        self.assertEqual(3.60, self.checkout_order.scan_item_by_weight('second_weight_item', 1))
+        self.assertEqual(5.25, self.checkout_order.scan_item_by_weight('second_weight_item', 1.1))
+
+    def test_scan_item_with_markdown(self):
+        self.assertEqual(0.50, self.checkout_order.scan_item('markdown_item'))
+        self.assertEqual(1.00, self.checkout_order.scan_item_by_weight('markdown_weighted_item', 1))
+        self.assertEqual(1.50, self.checkout_order.scan_item('markdown_item'))
+        self.assertEqual(2.25, self.checkout_order.scan_item_by_weight('markdown_weighted_item', 1.5))
 
     def test_scan_item_with_bogo_style_special(self):
         self.assertEqual(1.00, self.checkout_order.scan_item('bogo_item'))
