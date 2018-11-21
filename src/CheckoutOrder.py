@@ -110,7 +110,6 @@ class CheckoutOrder:
 
         return value
 
-
     def get_order(self):
         return self.__order
 
