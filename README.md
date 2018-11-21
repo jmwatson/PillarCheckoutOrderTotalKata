@@ -1,5 +1,6 @@
 # PillarCheckoutOrderTotalKata
 
+_\* I used PyCharm as my development environment so I can't guarantee the command line works_
 ####Setup
 
 ---
@@ -13,7 +14,6 @@
 ####Virtual Environment Setup
 
 ---
-\* This should be done in the project's root directory as it will create file that the project will need.
 1. Install virtualenv ```pip install virtualenv```
 2. Create the virtual environment ``` virtualenv venv```
 3. Activate the virtual environment ```source venv/bin/activate```
