@@ -143,11 +143,11 @@ class CheckoutOrder:
                 value = self.get_bogo_value(item, name, value, count, times_redeemed)
             elif 'bundle' in self.__specials and name in self.__specials['bundle']:
                 value = self.handle_bundle_specials(name, value, count)
-            elif 'equality' in self.__specials and name in self.__specials['equality'] and \
-                    name not in self.__temp_discounts:
-                value = self.handle_equality_specials(name, value)
-            elif name in self.__temp_discounts:
-                value = self.handle_equality_specials(name, value, self.__temp_discounts[name])
+            elif 'equality' in self.__specials and name in self.__specials['equality']:
+                if name not in self.__temp_discounts:
+                    value = self.handle_equality_specials(name, value)
+                else:
+                    value = self.handle_equality_specials(name, value, self.__temp_discounts[name])
 
             self.__total += value;
 
