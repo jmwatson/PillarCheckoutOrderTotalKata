@@ -33,6 +33,7 @@ class CheckoutOrderTests(unittest.TestCase):
         self.assertTrue(self.checkout_order.add_bogo_special('item3', 1, 1, 100, 3))
         self.assertTrue(self.checkout_order.add_bundle_special('item4', 2, 3))
         self.assertTrue(self.checkout_order.add_bogo_special('item5', 1, 1, 100))
+        self.assertTrue(self.checkout_order.add_equality_special('item6', 'item7', 50))
 
     def test_scan_item(self):
         self.assertEqual(1.00, self.checkout_order.scan_item('item'))
@@ -157,6 +158,7 @@ class CheckoutOrderTests(unittest.TestCase):
         self.assertEqual(19.80, self.checkout_order.scan_item_remove(9))
         # Remove a bogo item entry
         self.assertEqual(19.80, self.checkout_order.scan_item_remove(6))
+
 
 
 if __name__ == 'main':
