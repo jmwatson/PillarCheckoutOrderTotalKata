@@ -1,6 +1,6 @@
 # PillarCheckoutOrderTotalKata
 
-_\* I used PyCharm as my development environment so I can't guarantee the command line works_
+_\* I used PyCharm as my development environment so I can't guarantee the command line works._
 ####Setup
 
 ---
