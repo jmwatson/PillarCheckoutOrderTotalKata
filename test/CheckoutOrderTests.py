@@ -72,6 +72,7 @@ class CheckoutOrderTests(unittest.TestCase):
         self.checkout_order.scan_item_by_weight('weight_item', 1)
         self.assertTrue(self.checkout_order.clear_order())
         self.assertEqual([], self.checkout_order.get_order())
+        self.assertEqual(0.00, self.checkout_order.get_order_total())
 
     def test_scan_item(self):
         self.assertEqual(1.00, self.checkout_order.scan_item('item'))
