@@ -12,38 +12,38 @@ class CheckoutOrder:
     def add_markdown(self, item, value):
         return self.add_to_data_store(self.__markdowns, item, value)
 
-    def add_bogo_special(self, item, count, special_count, percent_off, limit=0):
-        if 'bogo' not in self.__specials:
-            self.add_to_data_store(self.__specials, 'bogo', {})
+    def add_special(self, dictionary, key, item, entry):
+        if key not in dictionary:
+            self.add_to_data_store(dictionary, key, {})
 
+        return self.add_to_data_store(dictionary[key], item, entry)
+
+    def add_bogo_special(self, item, count, special_count, percent_off, limit=0):
         entry = {
                 'count': count,
                 'special_count': special_count,
                 'percent_off': percent_off,
                 'limit': limit,
             }
-        return self.add_to_data_store(self.__specials['bogo'], item, entry)
+
+        return self.add_special(self.__specials, 'bogo', item, entry)
 
     def add_bundle_special(self, item, count, price):
-        if 'bundle' not in self.__specials:
-            self.add_to_data_store(self.__specials, 'bundle', {})
-
         entry = {
             'count': count,
             'price': price,
         }
-        return self.add_to_data_store(self.__specials['bundle'], item, entry)
+
+        return self.add_special(self.__specials, 'bundle', item, entry)
 
     def add_equality_special(self, purchase_item, discount_item, percent_off):
-        if 'equality' not in self.__specials:
-            self.add_to_data_store(self.__specials, 'equality', {})
-
         entry = {
             'purchase_item': purchase_item,
             'discount_item': discount_item,
             'percent_off': percent_off,
         }
-        return self.add_to_data_store(self.__specials['equality'], purchase_item, entry)
+
+        return self.add_special(self.__specials, 'equality', purchase_item, entry)
 
     @staticmethod
     def add_to_data_store(dictionary, key, value):
