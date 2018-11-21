@@ -3,6 +3,7 @@ class CheckoutOrder:
         self.__items = {}
         self.__markdowns = {}
         self.__specials = {}
+        self.__temp_discounts = {}
         self.__order = []
         self.__total = 0.0
 
@@ -99,6 +100,16 @@ class CheckoutOrder:
 
         return value
 
+    def handle_equality_specials(self, name, value, discount=None):
+        if discount is None and name in self.__specials['equality']:
+            special = self.__specials['equality'][name]
+            self.__temp_discounts[special['discount_item']] = special['percent_off']
+        elif discount is not None and name in self.__temp_discounts:
+            value -= (value * (self.__temp_discounts[name] / 100.0))
+
+        return value
+
+
     def get_order(self):
         return self.__order
 
@@ -119,6 +130,10 @@ class CheckoutOrder:
                 value = self.get_bogo_value(item, name, value, count, times_redeemed)
             elif 'bundle' in self.__specials and name in self.__specials['bundle']:
                 value = self.handle_bundle_specials(name, value, count)
+            elif 'equality' in self.__specials and name in self.__specials['equality']:
+                value = self.handle_equality_specials(name, value)
+            elif name in self.__temp_discounts:
+                value = self.handle_equality_specials(name, value, self.__temp_discounts[name])
 
             self.__total += value;
 
