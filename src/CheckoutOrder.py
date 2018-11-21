@@ -114,6 +114,7 @@ class CheckoutOrder:
         return self.__order
 
     def clear_order(self):
+        self.__order = []
         return True
 
     def get_order_total(self):
