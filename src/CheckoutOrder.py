@@ -105,16 +105,23 @@ class CheckoutOrder:
         special = self.__specials['equality'][name]
 
         if discount is None:
+            entry = {
+                name: value,
+                'discount': None,
+            }
+
             if name is special['purchase_item']:
-                self.__temp_discounts[special['discount_item']] = special['percent_off']
+                entry['discount'] = special['percent_off']
+                self.__temp_discounts[special['discount_item']] = entry
             else:
-                self.__temp_discounts[special['purchase_item']] = value * special['percent_off'] / 100.0
+                entry['discount'] = value * special['percent_off'] / 100.0
+                self.__temp_discounts[special['purchase_item']] = entry
         else:
-            if name is special['purchase_item']:
-                value -= self.__temp_discounts[name]
+            if name is special['purchase_item'] and discount[special['discount_item']] <= value:
+                value -= self.__temp_discounts[name]['discount']
                 self.__temp_discounts.pop(name)
-            else:
-                value -= (value * (self.__temp_discounts[name] / 100.0))
+            elif discount[special['purchase_item']] >= value:
+                value -= (value * (self.__temp_discounts[name]['discount'] / 100.0))
                 self.__temp_discounts.pop(name)
 
         return value
