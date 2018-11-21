@@ -167,6 +167,7 @@ class CheckoutOrderTests(unittest.TestCase):
         self.assertEqual(4.00, self.checkout_order.scan_item_by_weight('discounted_item', 1))
         self.checkout_order.scan_item_remove()
         self.assertEqual(4.00, self.checkout_order.scan_item_by_weight('discounted_item', 1))
+        self.assertEqual(6.00, self.checkout_order.scan_item_by_weight('discounted_item', 1))
 
 
 if __name__ == 'main':
