@@ -34,6 +34,17 @@ class CheckoutOrder:
         }
         return self.add_to_data_store(self.__specials['bundle'], item, entry)
 
+    def add_equality_special(self, purchase_item, discount_item, percent_off):
+        if 'equality' not in self.__specials:
+            self.add_to_data_store(self.__specials, 'equality', {})
+
+        entry = {
+            'purchase_item': purchase_item,
+            'discount_item': discount_item,
+            'percent_off': percent_off,
+        }
+        return self.add_to_data_store(self.__specials['equality'], purchase_item, entry)
+
     @staticmethod
     def add_to_data_store(dictionary, key, value):
         flag = False
