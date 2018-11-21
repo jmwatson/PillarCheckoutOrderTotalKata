@@ -44,7 +44,8 @@ class CheckoutOrder:
             'percent_off': percent_off,
         }
 
-        return self.add_special(self.__specials, 'equality', purchase_item, entry)
+        success = self.add_special(self.__specials, 'equality', discount_item, entry)
+        return success and self.add_special(self.__specials, 'equality', purchase_item, entry)
 
     @staticmethod
     def add_to_data_store(dictionary, key, value):
@@ -101,12 +102,20 @@ class CheckoutOrder:
         return value
 
     def handle_equality_specials(self, name, value, discount=None):
-        if discount is None and name in self.__specials['equality']:
-            special = self.__specials['equality'][name]
-            self.__temp_discounts[special['discount_item']] = special['percent_off']
-        elif discount is not None and name in self.__temp_discounts:
-            value -= (value * (self.__temp_discounts[name] / 100.0))
-            self.__temp_discounts.pop(name)
+        special = self.__specials['equality'][name]
+
+        if discount is None:
+            if name is special['purchase_item']:
+                self.__temp_discounts[special['discount_item']] = special['percent_off']
+            else:
+                self.__temp_discounts[special['purchase_item']] = value * special['percent_off'] / 100.0
+        else:
+            if name is special['purchase_item']:
+                value -= self.__temp_discounts[name]
+                self.__temp_discounts.pop(name)
+            else:
+                value -= (value * (self.__temp_discounts[name] / 100.0))
+                self.__temp_discounts.pop(name)
 
         return value
 
@@ -134,7 +143,8 @@ class CheckoutOrder:
                 value = self.get_bogo_value(item, name, value, count, times_redeemed)
             elif 'bundle' in self.__specials and name in self.__specials['bundle']:
                 value = self.handle_bundle_specials(name, value, count)
-            elif 'equality' in self.__specials and name in self.__specials['equality']:
+            elif 'equality' in self.__specials and name in self.__specials['equality'] and \
+                    name not in self.__temp_discounts:
                 value = self.handle_equality_specials(name, value)
             elif name in self.__temp_discounts:
                 value = self.handle_equality_specials(name, value, self.__temp_discounts[name])
